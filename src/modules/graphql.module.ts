@@ -5,16 +5,17 @@ import { NestConfig, NestConfigKey } from '@app/config/nest.config';
 import { ApolloServerPlugin } from "@apollo/server";
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import * as path from 'node:path';
+import { GraphQLConfig, GraphQLConfigKey } from "@app/config/graphql.config";
 
 @Module({
     imports: [
         NestGraphQLModule.forRootAsync<ApolloDriverConfig>({
             driver: ApolloDriver,
-            inject: [NestConfigKey],
-            useFactory: (nestConfig: NestConfig) => {
+            inject: [NestConfigKey, GraphQLConfigKey],
+            useFactory: (nestConfig: NestConfig, graphqlConfig: GraphQLConfig) => {
                 const plugins: ApolloServerPlugin[] = [];
 
-                if (nestConfig.nodeEnv === 'development') {
+                if (graphqlConfig.playground) {
                     plugins.push(ApolloServerPluginLandingPageLocalDefault());
                 }
 
