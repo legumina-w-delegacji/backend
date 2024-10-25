@@ -1,0 +1,15 @@
+# IDEs
+.idea/
+.vscode/
+
+# Project files
+dist/
+node_modules/
+test/
+.dockerignore
+.gitignore
+.eslintrc.js
+.prettierrc
+jest.config.ts
+jest.config.e2e.ts
+readme.md
