@@ -1,9 +1,9 @@
+import { graphqlConfig } from '@app/config/graphql.config';
 import { nestConfig } from '@app/config/nest.config';
 import { prismaConfig } from '@app/config/prisma.config';
-import { ConfigModule as BaseConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { ConfigModule as BaseConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { graphqlConfig } from '@app/config/graphql.config';
 
 @Module({
     imports: [
@@ -22,4 +22,4 @@ import { graphqlConfig } from '@app/config/graphql.config';
         }),
     ],
 })
-export class ConfigModule { }
+export class ConfigModule {}

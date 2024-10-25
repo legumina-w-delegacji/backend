@@ -1,7 +1,7 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { PrismaAsyncOptions, PrismaOptions } from '@app/prisma/prisma.options';
 import { PrismaOptionsToken } from '@app/prisma/prisma.consts';
+import { PrismaAsyncOptions, PrismaOptions } from '@app/prisma/prisma.options';
 import { PrismaService } from '@app/prisma/prisma.service';
+import { DynamicModule, Module } from '@nestjs/common';
 
 @Module({})
 export class PrismaModule {

@@ -14,11 +14,14 @@ datasource db {
 }
 
 model Event {
-  uuid      String   @id @default(uuid())
-  name      String
-  severity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  uuid        String   @id @default(uuid())
+  name        String
+  description String
+  severity    Int
+  lat         Float
+  lng         Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("events")
 }

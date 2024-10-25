@@ -1,8 +1,8 @@
+import { AppModule } from '@app/app.module';
+import { NestConfig, NestConfigToken } from '@app/config/nest.config';
 import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '@app/app.module';
-import { NestConfig, NestConfigToken } from '@app/config/nest.config';
 import helmet from 'helmet';
 
 const logger = new Logger('Bootstrap');
