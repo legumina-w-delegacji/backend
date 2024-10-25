@@ -1,0 +1,38 @@
+services:
+  backend:
+    image: "node:20"
+    command: "yarn start:dev"
+    working_dir: "/app"
+    restart: "always"
+    env_file:
+      - ".env"
+    volumes:
+      - ".:/app"
+    networks:
+      - "default"
+
+  postgres:
+    image: "postgres:17.0"
+    restart: "always"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER:-postgres}" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-password}"
+      POSTGRES_DB: "${POSTGRES_DB:-postgres}"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+    networks:
+      - "default"
+
+volumes:
+  postgres_data:
+
+
+networks:
+  default:
