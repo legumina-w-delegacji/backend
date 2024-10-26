@@ -40,3 +40,6 @@ lerna-debug.log*
 # Yalc
 .yalc
 yalc.lock
+
+# Firebase credentials
+firebase-credentials.json
