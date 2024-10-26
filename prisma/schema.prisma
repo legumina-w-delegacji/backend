@@ -14,14 +14,20 @@ datasource db {
 }
 
 model Event {
-  uuid        String   @id @default(uuid())
+  uuid        String      @id @default(uuid())
   name        String
   description String
   severity    Int
   lat         Float
   lng         Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  status      EventStatus @default(OPEN)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@map("events")
+}
+
+enum EventStatus {
+  OPEN
+  CLOSED
 }

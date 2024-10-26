@@ -14,6 +14,7 @@ type Event {
   lng: Float!
   name: String!
   severity: Int!
+  status: EventStatus!
   updatedAt: DateTime!
   uuid: ID!
 }
@@ -24,12 +25,23 @@ input EventCreateInput {
   lng: Float!
 }
 
+enum EventStatus {
+  CLOSED
+  OPEN
+}
+
+input EventUpdateInput {
+  status: EventStatus!
+  uuid: String!
+}
+
 input GetEventInput {
   uuid: String!
 }
 
 type Mutation {
   eventCreate(input: EventCreateInput!): Event!
+  eventUpdate(input: EventUpdateInput!): Event!
   subscribeToTopic(input: SubscribeToTopicInput!): Boolean!
 }
 

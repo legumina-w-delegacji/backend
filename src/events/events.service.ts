@@ -6,6 +6,8 @@ import { Injectable } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
 import { EventBlockedError } from './errors/event-blocked.error';
 import { FirebaseService } from '@app/firebase/firebase.service';
+import { EventStatus } from '@prisma/client';
+import { EventUpdateInput } from './models/event-update.input';
 
 @Injectable()
 export class EventsService {
@@ -16,7 +18,11 @@ export class EventsService {
     ) { }
 
     async getEvents(): Promise<Event[]> {
-        return this.prismaService.event.findMany();
+        return this.prismaService.event.findMany({
+            where: {
+                status: EventStatus.OPEN
+            }
+        });
     }
 
     async getEventByUuid(uuid: string): Promise<Event> {
@@ -43,5 +49,14 @@ export class EventsService {
         await this.firebaseService.sendNewEventNotification(event);
 
         return event;
+    }
+
+    async updateEvent(input: EventUpdateInput): Promise<Event> {
+        return this.prismaService.event.update({
+            where: { uuid: input.uuid },
+            data: {
+                status: input.status,
+            },
+        });
     }
 }

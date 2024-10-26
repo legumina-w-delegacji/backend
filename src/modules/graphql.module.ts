@@ -4,7 +4,8 @@ import { GraphQLConfig, GraphQLConfigKey } from '@app/config/graphql.config';
 import { NestConfig, NestConfigKey } from '@app/config/nest.config';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
+import { GraphQLModule as NestGraphQLModule, registerEnumType } from '@nestjs/graphql';
+import { EventStatus } from '@prisma/client';
 import * as path from 'node:path';
 
 @Module({
@@ -35,4 +36,8 @@ import * as path from 'node:path';
         }),
     ],
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+    constructor() {
+        registerEnumType(EventStatus, { name: 'EventStatus' });
+    }
+}

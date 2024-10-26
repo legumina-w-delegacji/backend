@@ -1,4 +1,5 @@
 import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
+import { EventStatus } from '@prisma/client';
 
 @ObjectType()
 export class Event {
@@ -19,6 +20,9 @@ export class Event {
 
     @Field(() => Float)
     lng: number;
+
+    @Field(() => EventStatus)
+    status: EventStatus;
 
     @Field(() => Date)
     createdAt: Date;
