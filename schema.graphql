@@ -30,9 +30,15 @@ input GetEventInput {
 
 type Mutation {
   eventCreate(input: EventCreateInput!): Event!
+  subscribeToTopic(input: SubscribeToTopicInput!): Boolean!
 }
 
 type Query {
   event(input: GetEventInput!): Event
   events: [Event!]!
+}
+
+input SubscribeToTopicInput {
+  token: String!
+  topic: String!
 }

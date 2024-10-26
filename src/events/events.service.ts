@@ -5,12 +5,14 @@ import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
 import { EventBlockedError } from './errors/event-blocked.error';
+import { FirebaseService } from '@app/firebase/firebase.service';
 
 @Injectable()
 export class EventsService {
     constructor(
         private readonly prismaService: PrismaService,
         private readonly openAIService: OpenAIService,
+        private readonly firebaseService: FirebaseService,
     ) { }
 
     async getEvents(): Promise<Event[]> {
@@ -28,7 +30,7 @@ export class EventsService {
             throw new EventBlockedError();
         }
 
-        return this.prismaService.event.create({
+        const event = await this.prismaService.event.create({
             data: {
                 name: summary.name,
                 description: input.description,
@@ -37,5 +39,9 @@ export class EventsService {
                 severity: summary.severity,
             },
         });
+
+        await this.firebaseService.sendNewEventNotification(event);
+
+        return event;
     }
 }

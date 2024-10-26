@@ -3,9 +3,10 @@ import { EventsModule } from '@app/events/events.module';
 import { GraphQLModule } from '@app/modules/graphql.module';
 import { OpenAIModule } from '@app/modules/openai.module';
 import { PrismaModule } from '@app/modules/prisma.module';
+import { FirebaseModule } from '@app/firebase/firebase.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports: [ConfigModule, EventsModule, GraphQLModule, OpenAIModule, PrismaModule],
+    imports: [ConfigModule, EventsModule, FirebaseModule, GraphQLModule, OpenAIModule, PrismaModule],
 })
-export class AppModule {}
+export class AppModule { }

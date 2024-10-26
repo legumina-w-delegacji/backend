@@ -3,15 +3,16 @@ import { nestConfig } from '@app/config/nest.config';
 import { prismaConfig } from '@app/config/prisma.config';
 import { Module } from '@nestjs/common';
 import { ConfigModule as BaseConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
 import { openAIConfig } from './openai.config';
+import { firebaseConfig } from './firebase.config';
+import * as Joi from 'joi';
 
 @Module({
     imports: [
         BaseConfigModule.forRoot({
             isGlobal: true,
             cache: true,
-            load: [nestConfig, prismaConfig, graphQLConfig, openAIConfig],
+            load: [nestConfig, prismaConfig, firebaseConfig, graphQLConfig, openAIConfig],
             validationSchema: Joi.object({
                 NODE_ENV: Joi.string().valid('development', 'test', 'production').default('production'),
                 HOST: Joi.string().default('0.0.0.0'),
@@ -22,8 +23,9 @@ import { openAIConfig } from './openai.config';
                 OPENAI_API_KEY: Joi.string().required(),
                 OPENAI_API_URL: Joi.string().required(),
                 OPENAI_MODEL: Joi.string().required(),
+                FIREBASE_CREDENTIALS: Joi.string().required(),
             }),
         }),
     ],
 })
-export class ConfigModule {}
+export class ConfigModule { }
